@@ -1,0 +1,4 @@
+#content
+  %table{ :cellpadding => "2%", :width => "100%" }
+    %tr
+      = render(:partial => "book_details", :object => @book, :locals => { :hide_button => true })

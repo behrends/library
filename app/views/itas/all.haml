@@ -1,0 +1,15 @@
+#content
+  %table{ :cellpadding => "2%", :width => "100%" }
+    %tr
+      %td{ :colspan => "3", :align => "center" }
+        = will_paginate @books
+        %br
+        %b
+          All books sorted by title
+        %br
+        %hr{ :size => "1", :width => "100%" }
+    = render(:partial => "book", :collection => @books)
+    %tr
+      %td{ :colspan => "3", :align => "center" }
+        %br
+        = will_paginate @books

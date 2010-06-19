@@ -1,0 +1,55 @@
+<tr>
+	<td width="20%">
+		<%= link_to image_tag(book.image_url), url_for(:action => "book", :id => book.id)  %>
+	</td>
+	<td valign="top">
+		<b><%=h book.title_main_245a %></b> <%= "(co-authored)" if co_authored %>
+		<br/>
+		<br/>
+		<% if !book.person.nil? && !hide_author then %>
+			<b>Author:</b>
+			<%=h book.person.to_label %>
+			<%=h " (" + book.person.fullname_100q.to_s + ")" unless book.person.fullname_100q.nil? %>
+		<!-- 
+			<% for name in book.person.people_extra_names -%>
+			<%=h (name==book.person.people_extra_names.first ? "(" : "- ") + name.alternative_name_400a.to_s + (name==book.person.people_extra_names.last ? ")" : "") %>
+			<% end %>
+		-->
+			<br/>
+		<% end %>
+		<% if !book.isbn_020a.nil? then %>
+			<b>ISBN:</b>
+			<%=h book.isbn_020a %>
+			<br/>
+		<% end %>
+		<% if !book.keywords.nil? && book.keywords.length>0 then %>
+			<b>Keywords:</b>
+			<% for keyword in book.keywords%>
+				<%=h keyword.to_label + (keyword==book.keywords.last ? " " : ",")  %>
+			<% end %>
+			<br/>
+		<% end %>
+		<% if !book.language041as.nil? && book.language041as.length>0 then %>
+			<b>Languages:</b>
+			<% for language in book.language041as%>
+				<%=h language.language_code.description + (language==book.language041as.last ? " " : ",") %>
+			<% end %>
+			<br/>
+		<% end %>
+		<% if !book.library_locations.nil? && book.library_locations.length>0 then %>
+			<b>Libraries:</b>
+			<% for library in book.items_library_locations%>
+				<br/>
+				&nbsp;&nbsp;&nbsp;<%=h library.library_location.to_label + " - Shelfmark: " + (library.shelfmark.nil? ? "none" : library.shelfmark) %>
+			<% end %>
+		<% end %>
+		<br/>
+		<br/>
+		<%= link_to "Details &raquo;",  url_for(:action => "book", :id => book.id) %>	
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<hr width="100%" size="1"/>
+	</td>
+</tr>

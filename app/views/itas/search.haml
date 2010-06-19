@@ -1,0 +1,21 @@
+#content
+  %table{ :cellpadding => "2%", :width => "100%" }
+    - if @books.empty?
+      %tr
+        %td{:align => "center" }
+          %h3 
+            = 'Nothing found for "' + params[:search] + '"'
+    - else
+      %tr
+        %td{ :colspan => "3", :align => "center" }
+          = will_paginate @books
+          %br
+          %b
+            = 'Results for search "' + params[:search] + '"'
+          %hr{ :size => "1", :width => "100%" }
+      = render(:partial => "book", :collection => @books)
+      %tr
+        %td{ :colspan => "3", :align => "center" }
+          %br
+          = will_paginate @books
+      

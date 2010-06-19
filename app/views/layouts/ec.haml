@@ -1,0 +1,54 @@
+!!! XML
+!!! Strict
+%html{ :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    = javascript_include_tag :defaults
+    = javascript_include_tag "builder.js"
+    = javascript_include_tag "modalbox.js"
+    = stylesheet_link_tag "ec"
+    = stylesheet_link_tag "modalbox.css"
+    %link{:rel => "shortcut icon", :href => "/favicon.ico"}
+    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
+    %title Europe Center Library
+  %body
+    #mainpage
+      #frame
+        #header
+          %a{ :id => "logo", :href => "http://www.europe-center.org/" }
+          %a{ :id => "dwblogo", :href => "http://www.diamondway-buddhism.org/" }
+          - form_remote_tag :url => { :action => "search" }, :success => "setSelected('none')", :method => :get, :loading => "showSpinner()" do
+            %label Search:
+            = text_field_tag :search, params[:search], :class => "search"
+            = image_submit_tag "../images/ec-butt-go.gif", :style => "vertical-align: bottom;", :id => "search_button"
+        #content
+          #left
+            %b
+              COLLECTIONS
+            %ul
+              %li{:name => "all", :id => "selected"}
+                = link_to_remote "All books", :url => { :action => "index" }, :success => "setSelected('all')", :loading => "showSpinner()", :method => :get
+              %li{:name => "intro"}
+                = link_to_remote "Introduction", :url => { :action => "search_by_keyword", :keyword => "Introduction to Buddhism" }, :success => "setSelected('intro')", :loading => "showSpinner()", :method => :get
+              %li{:name => "ngondro"}
+                = link_to_remote "Foundational Practices", :url => { :action => "search_by_keyword", :keyword => "Ngondro" }, :success => "setSelected('ngondro')", :loading => "showSpinner()", :method => :get
+              %li{:name => "essential"}
+                = link_to_remote "Must reads", :url => { :action => "search_by_keyword", :keyword => "Essential" }, :success => "setSelected('essential')", :loading => "showSpinner()", :method => :get
+              %li{:name => "bio"}
+                = link_to_remote "Life Stories", :url => { :action => "search_by_keyword", :keyword => "Biography" }, :success => "setSelected('bio')", :loading => "showSpinner()", :method => :get
+              %li{:name => "mahamudra"}
+                = link_to_remote "The Great Seal", :url => { :action => "search_by_keyword", :keyword => "Mahamudra" }, :success => "setSelected('mahamudra')", :loading => "showSpinner()", :method => :get
+              %li{:name => "kagyu"}
+                = link_to_remote "Karma Kagy&uuml;", :url => { :action => "search_by_keyword", :keyword => "Kagyu" }, :success => "setSelected('kagyu')", :loading => "showSpinner()", :method => :get
+              %li{:name => "nyinmga"}
+                = link_to_remote "Nyingma", :url => { :action => "search_by_keyword", :keyword => "Nyingma" }, :success => "setSelected('nyinmga')", :loading => "showSpinner()", :method => :get
+          #right
+            = yield
+      #push
+    #footer
+      %a{ :href => "http://www.europe-center.org/" } Home
+      |
+      %a{ :href => "http://www.europe-center.org/about/the-europe-center/" } About
+      |
+      %a{ :href => "http://www.europe-center.org/" } Feedback
+      %span#footercopyright
+        %a{ :href => "http://www.diamondway-buddhism.org/" } &copy; 2009 Diamond Way Buddhism

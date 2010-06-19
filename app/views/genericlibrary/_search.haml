@@ -1,0 +1,24 @@
+#results
+  %table{ :cellpadding => "2%", :width => "100%" }
+    - if @books.empty?
+      %tr
+        %td{:align => "center" }
+          %h3 
+            = 'Nothing found for "' + params[:search] + '"' if params[:search]
+    - else
+      %tr
+        %td{ :colspan => "3", :align => "center" }
+          - unless params[:search].blank?
+            %span#searchresult
+              = 'Results for search "' + params[:search] + '"'
+          .ec_pagination{ :id => "pagination_top" }
+            = will_paginate @books, :container => false
+          .page_info
+            = page_entries_info @books
+      = render(:partial => "genericlibrary/book", :collection => @books)
+      %tr
+        %td{ :colspan => "3", :align => "center" }
+          %br
+          .ec_pagination{ :id => "pagination_bottom" }
+            = will_paginate @books, :container => false
+    

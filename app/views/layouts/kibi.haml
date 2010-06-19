@@ -1,0 +1,45 @@
+!!! XML
+!!! Strict
+%html{ :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    = javascript_include_tag "jquery", "jquery-1.3.2.min.js", "jquery-ui-1.7.2.custom.min.js", "jquery.ba-url.js", "application"
+    = stylesheet_link_tag "ec", "jquery-ui-1.7.2.custom.css"
+    %link{:rel => "shortcut icon", :href => "/favicon.ico"}
+    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
+    %title Kibi Library
+  %body
+    #mainpage
+      #frame
+        #header
+          %a{ :id => "dwblogo", :href => "http://www.diamondway-buddhism.org/" }
+          - form_tag( { :action => "index" }, :method => "get", :id => "search_form" ) do
+            %label Search:
+            = text_field_tag :search, params[:search], :class => "search"
+            = image_submit_tag "../images/ec-butt-go.gif", :style => "vertical-align: bottom;", :id => "search_button"
+        #content
+          #left
+            %b
+              COLLECTIONS
+            %ul
+              %li{:name => "all"}
+                = link_to "All books", {}, :id => "category"
+              %li{:name => "intro"}
+                = link_to "Introduction", { :keywords => "Introduction to Buddhism" }, :id => "category"
+              %li{:name => "ngondro"}
+                = link_to "Foundational Practices", { :keywords => "Ngondro" }, :id => "category"
+              %li{:name => "essential"}
+                = link_to "Must reads", { :keywords => ['Essential', 'Diamond Way'] }, :id => "category"
+              %li{:name => "bio"}
+                = link_to "Life Stories", { :keywords => "Biography" }, :id => "category"
+              %li{:name => "mahamudra"}
+                = link_to "The Great Seal", { :keywords => "Mahamudra" }, :id => "category"
+              %li{:name => "kagyu"}
+                = link_to "Karma Kagy&uuml;", { :keywords => "Kagyu" }, :id => "category"
+              %li{:name => "nyinmga"}
+                = link_to "Nyingma", { :keywords => "Nyingma" }, :id => "category"
+          #right
+            = yield
+      #push
+    #footer
+      %span#footercopyright Copyright &copy; 2009 Kibi
+ 

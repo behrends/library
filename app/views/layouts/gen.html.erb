@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<%= javascript_include_tag :defaults %>
+	<%= active_scaffold_includes %>
+	<%= stylesheet_link_tag "gen" %>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Karma Kagy&uuml; Library - <%= @page %></title>
+</head>
+<body>
+	<div id='pagewrapper'>
+		<div id='header'>
+			<p>Karma Kagy&uuml; Library</p>
+		</div>
+		<div id='navbar'>
+			<ul>
+				<li><%= link_to("Home", root_path) %></li>
+				<li><a <%= "id='selected'" if @page=="Books"%> href=<%= url_for(:controller => "ec", :action => "books")%>>Books</a></li>
+				<li><a <%= "id='selected'" if @page=="Authors"%> href=<%= url_for(:controller => "ec", :action => "authors")%>>Authors</a></li>
+				<li><a <%= "id='selected'" if @page=="Keywords"%> href=<%= url_for(:controller => "ec", :action => "keywords")%>>Keywords</a></li>
+			</ul>
+		</div>
+		<div id='content'>
+			<%= yield %>
+		</div>
+		<div id='footer'>
+			<p>Karma Kagy&uuml; Library</p>
+		</div>
+	</div>
+</body>
+</html>

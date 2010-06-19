@@ -1,0 +1,32 @@
+%tr{ :id => book.id }
+  %td{ :valign => "top", :width => "20%" }
+    - url = book.image_url
+    - if url == "openlibrary" then
+      - url = "http://covers.openlibrary.org/b/isbn/#{book.isbn_020a}-S.jpg"
+    #thumb
+      = link_to image_tag(url), url_for(:action => "book", :id => book.id)
+  %td{ :valign => "top" }
+    %b
+      Title:
+    = h book.title_main_245a
+    %br
+    - if !book.person.nil? then
+      %b
+        Author:
+      = h book.person.to_label
+      - unless book.person.fullname_100q.nil?
+        = h " (" + book.person.fullname_100q.to_s + ")" 
+      %br
+    - if !book.publication_date_260c.nil? then
+      %b
+        Year:
+      = h book.publication_date_260c
+      %br
+  %td{ :nowrap => "true", :valign => "bottom", :align => "right" }
+    - form_remote_tag :url => { :action => 'book_item', :id => book.id, :more => true } do
+      = submit_tag "more &raquo;", :class => "button"
+/ draw a horizontal rule if we render a collection of books
+- if @books
+  %tr
+    %td{ :colspan => "3" }
+      %hr{ :size => "1", :width => "100%" }

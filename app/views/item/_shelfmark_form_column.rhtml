@@ -1,0 +1,23 @@
+<!-- partial field override for shelfmark to check duplicate shelfmarks 
+	and display warning -->
+<!-- get scope (used for unique names) (stolen from activescaffold) -->
+<% scope ||= nil %>
+<!-- get current item id (stolen from activescaffold)-->
+<% item_id = (params[:eid] || params[:id]) %>
+<dl>
+	<dt>
+		<label for="<%= "record_#{column.name}" %>"> <%= column.label %> </label>
+	</dt>
+	<dd>
+		<input class="<%= "#{column.name}-input text-input" %>" 
+			id="<%= "record_#{column.name}_#{scope}" %>"
+			name="<%= "record#{scope}[#{column.name}]" %>"  size="20" 
+			value="<%= "#{@record.shelfmark}" %>" type="text">
+		<div id="<%= "elem_#{scope}" %>"></div>
+		<%= observe_field "record_#{column.name}_#{scope}",
+			:frequency => 0.5,
+			:update => "elem_#{scope}",
+			:url => {:action => 'check_duplicate_shelfmark'},
+			:with => "'search=' + encodeURIComponent(value) + '&item_id=#{item_id}'" %>
+	</dd>
+</dl>

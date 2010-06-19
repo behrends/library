@@ -1,0 +1,92 @@
+<%
+fields = ["title_other_lang_245d", "title_material_desc_245h", "title_other_author_245j",
+	"title_number_part_245n", "title_name_part_245p", "publisher_id", "city_id", "publication_date_260c",
+	"physical_extent_300a", "isbn_020a", "edition_250a", "contents_505a", "add_titles_700t"]
+
+names = ["Title in other language", "Material description", "Title from other author", 
+	"Title number part", "Title name part", "Publisher", "Publication place", "Publication date",
+	"Physical details", "ISBN", "Edition", "Contents", 	"Additional titles"]
+%>
+<table bgcolor="white" id="book_details" cellspacing="10">
+  <tr>
+    <td valign="top" width="20%">
+      <div class="small">
+        <% 
+        url = @book.image_url
+        if url == "openlibrary"
+          url = "http://covers.openlibrary.org/b/isbn/#{@book.isbn_020a}-M.jpg"
+        end %>
+        <div id="thumb">
+          <% if !@book.ebook_url.nil? %>
+            <%= link_to image_tag(url), @book.ebook_url %>			  
+            <br/>
+            <%= link_to("eBook", @book.ebook_url) %>
+          <% else %>
+            <%= link_to image_tag(url) %>
+          <% end %>
+        </div>
+        <br/>
+        <%= link_to("PDF",  url_for(:controller => "itas" , :action => "send_pdf", :file => @book.pdf)) + "<br/>" unless @book.pdf.nil? %>	
+        <%= link_to("content", @book.content_url) + "<br/>" unless @book.content_url.nil? %>
+        <%= link_to("audio", @book.audio_url) + "<br/>" unless @book.audio_url.nil? %>
+        <%= link_to("video", @book.video_url) + "<br/>" unless @book.video_url.nil? %>
+      </div>
+    </td>
+    <td valign="top">
+      <% unless @book.person.nil? %>
+        <b> <%=h @book.person.get_display_name %> </b>
+        <br/>
+        <br/>
+      <% end %>
+      <b> <%=h @book.title_main_245a %> </b>
+      <br/>
+      <%= @book.title_remainder_245b unless @book.title_remainder_245b.nil? %>
+      <%= " - " + @book.title_remainder_245b_2 unless @book.title_remainder_245b_2.nil? %>
+      <%= " - " + @book.title_responsibility_245c unless @book.title_responsibility_245c.nil? %>
+      <br/>
+      <br/>
+      
+      <% for i in 0..fields.length-1 do %>
+        <% if @book.attribute_present?(fields[i]) then %>
+            <% value = @book.send(fields[i].chomp("_id")).send(fields[i].chomp("_id")!=fields[i] ? "to_label" : "to_s") %>
+            <% value = "<a href='" + value + "'>" + value + "</a>" if /^http/.match(value) %>
+            <%= "<b>#{names[i]}:</b> #{value} <br/>"  %>
+        <% end %>
+      <% end %>
+
+      <%= "<b>Notes:</b>" unless @book.notes.empty? %>
+      <% for note in @book.notes -%>
+        <%=h note.to_label %>
+      <% end %>
+      <%= "<br/>" unless @book.notes.empty? %>
+
+      <%= "<b>Keywords:</b>" unless @book.keywords.empty? %>
+      <% for keyword in @book.keywords%>
+        <%=h keyword.to_label + (keyword==@book.keywords.last ? " " : ",")  %>
+      <% end %>
+      <%= "<br/>" unless @book.keywords.empty? %>
+
+      <%= "<b>Languages:</b>" unless @book.language041as.empty? %>
+      <% for language in @book.language041as%>
+        <%=h language.language_code.description + (language==@book.language041as.last ? " " : ",") %>
+      <% end %>
+      <%= "<br/>" unless @book.language041as.empty? %>
+
+      <%= "<b>Series:</b>" unless @book.series.empty? %>
+      <% for series in @book.series%>
+        <%=h series.to_label + (series==@book.series.last ? " " : ",")  %>
+      <% end %>
+      <%= "<br/>" unless @book.series.empty? %>
+      
+      <%= "<b>Shelfmark:</b>" unless @book.library_locations.empty? %>
+      <% for library in @book.items_library_locations%>
+        <% if library.library_location.id == lib %>
+          <%= library.shelfmark.nil? ? "none" : library.shelfmark %>
+        <% end %>
+      <% end %>
+      <%= "<br/>" unless @book.items_library_locations.empty? %>
+
+      <%= "<br/><b>This item is a rarity! </b> For lending ask your librarian." if @book.is_rarity %>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,25 @@
+!!! XML
+!!! Strict
+%html{ :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
+    %title
+      = @pagetitle
+    = javascript_include_tag :defaults
+    = stylesheet_link_tag 'library'
+  %body
+    #pagewrapper
+      #header
+        %p
+          Diamond Way Library
+      #navbar
+        %ul
+          %li
+            = link_to("Home", root_path)
+      #content
+        %h2
+          = flash[:notice]
+        = yield
+      #footer
+        %p
+          Diamond Way Library

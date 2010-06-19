@@ -1,0 +1,40 @@
+- form_tag(url_for(:action => "advanced_search"), :method => :get) do
+  %table{ :cellpadding => "0", :cellspacing => "0", :width => "100%" }
+    %tbody
+      %tr
+        %td{ :align => "right", :valign => "bottom" }
+          %table
+            %tbody
+              %tr
+                %td{ :align => "right", :valign => "bottom" }
+                  #medium
+                    Author:
+                    = text_field_tag(:author, params[:author], :class => "field")
+                %td{ :align => "right", :valign => "bottom" }
+                  #medium
+                    Keyword:
+                    = text_field_tag(:keyword, params[:keyword], :class => "field")
+              %tr
+                %td{ :align => "right", :valign => "bottom" }
+                  #medium
+                    Title:
+                    = text_field_tag(:title, params[:title], :class => "field")
+                %td{ :align => "right", :valign => "bottom" }
+                  #medium
+                    ISBN:
+                    = text_field_tag(:isbn, params[:isbn], :class => "field")
+        %td{ :align => "right", :valign => "bottom", :width => "74px" }
+          = submit_tag "Search", :class => "button"
+      %tr
+        %td{ :colspan => "2", :align => "right", :valign => "top" }
+          = link_to_remote "Simple search", :update => "search-container", :url => { :action => "toggle_search", :simple => true }
+      /
+        %tr
+          %td{ :colspan => "2", :align => "right", :valign => "top" }
+            #small
+              Sort order:
+              = radio_button_tag 'order', 'random', true, options = {:onclick => "this.form.submit();"}
+              Random
+              = radio_button_tag 'order', 'alphabetical', params[:order] == 'alphabetical', options = {:onclick => "this.form.submit();"}
+              A...Z
+              <td><br/><div class="small"><haml:loud> check_box_tag :has_pdf, true, params[:has_pdf]  </haml:loud>pdf books only</div></td>

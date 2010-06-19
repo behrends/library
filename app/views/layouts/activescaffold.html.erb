@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<%= javascript_include_tag :defaults %>
+	<%= active_scaffold_includes %>
+	<%= stylesheet_link_tag "as_overrides" %>
+	<title>Diamond Way Library - Administration - <%= @pagename %></title>
+</head>
+<body>
+	<div id='pagewrapper'>
+		<div id='header'>
+			<p>Diamond Way Library - Administration</p>
+		</div>
+		<div id='navbar'>
+			<ul>
+				<li><%= link_to("Home", root_path) %></li>
+				<li><a <%= "id='selected'" if @pagename=="Items"%> href="item">Items</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Items (not approved)"%> href="non_approved_item">Items (not approved)</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Authors"%> href="person">Authors</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Author names"%> href="people_extra_name">Author names</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Keywords"%> href="keyword">Keywords</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Person keywords"%> href="person_keyword">Person keywords</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Publishers"%> href="publisher">Publishers</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Series"%> href="series">Series</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Cities"%> href="city">Cities</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Uniform titles"%> href="uniform_title">Uniform titles</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Journals"%> href="journal">Journals</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Corporations"%> href="corporation">Corporations</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Varying titles"%> href="varying_title">Varying titles</a></li>
+				<li><a <%= "id='selected'" if @pagename=="Languages"%> href="language_code">Languages</a></li>
+				<li><a <%= "id='selected'" if @pagename=="KIBI"%> href="kibi">KIBI</a></li>
+				<li><% if logged_in? %>
+					<%= link_to "Logout", logout_path %>
+					<% end %>
+				</li>
+			</ul>
+		</div>
+		<div id='content'>
+			<% unless flash[:notice].blank? %>
+			<div id="notification"><%= flash[:notice] %></div>
+			<% end %>
+			<%= yield %>
+		</div>
+		<div id='footer'>
+			<p>Diamond Way Library - Administration</p>
+		</div>
+	</div>
+</body>
+</html>

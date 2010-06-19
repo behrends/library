@@ -1,0 +1,11 @@
+- form_tag(url_for(:action => "search"), :method => :get) do
+  %table{ :cellpadding => "0", :cellspacing => "0", :width => "100%" }
+    %tbody
+      %tr
+        %td{ :align => "right", :valign => "top" }
+          = text_field_tag :search, params[:search], :class => "field"
+        %td{ :align => "right", :valign => "bottom", :width => "79px" }        
+          = submit_tag "Search", :class => "button"
+      %tr
+        %td{ :colspan => "2", :align => "right", :valign => "top" }
+          = link_to_remote "Advanced search", :update => "search-container", :url => { :action => "toggle_search", :advanced => true }

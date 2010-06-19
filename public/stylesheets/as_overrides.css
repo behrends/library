@@ -1,0 +1,96 @@
+/* 
+    Document   : as_overrides
+    Created on : 15.01.2008, 07:11:34
+    Author     : erik
+    Description:
+        Purpose of the stylesheet follows.
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+
+*/
+body {
+    background-color:#DDDDDD;
+    color:#564B47;
+    font-family: Arial, Helvetica, sans-serif;
+    margin:0px;
+    padding:0px;
+}
+#pagewrapper {
+    background-color:#EEEEEE;
+    width: 1200px;
+    margin: 10px auto;
+    padding: 0;
+}
+#header {
+    background-color: #005CB8;
+    margin: 0;
+    padding: 0;
+}
+#header p {
+    padding: 20px 10px;
+    font-size: 24px;
+    margin: 0;
+    color: white;
+    font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+}
+a:hover.nav {
+    background-color: #ff8;
+}
+#content {
+    padding: 20px 10px;
+}
+#footer {
+    background-color: #555555;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    clear:both;
+    text-align: center;
+}
+#footer p{
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    font-weight:bold;
+    margin: 0;
+    padding: 2px;
+}
+
+/* Navigation Bar */
+#navbar #selected {
+	background-color: #005CB8;
+}
+#navbar ul {
+    padding: 0;
+    margin: 0;
+    background-color: #555555;
+    color: White;
+    float: left;
+    width: 100%;
+    list-style: none;
+    font-weight: bold;
+    font-size: 11px;
+}
+#navbar ul li { 
+    display: inline;
+    color: White;
+    float: left;
+    font-family: arial, helvetica, sans-serif;
+}
+#navbar ul li a {
+    padding: 0.2em 0.7em;
+    color: White;
+    text-decoration: none;
+    float:left;
+}
+#navbar ul li a:hover {
+    background-color: #000000;
+    color: #FFFF88;
+}
+.active-scaffold-header h2 {
+	font-size:120%;
+}
+div.warn{
+	font-family: Verdana;
+	font-size: 9px;
+	color: Red;
+}

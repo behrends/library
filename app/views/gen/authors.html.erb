@@ -1,0 +1,36 @@
+<br/>
+<%= link_to "All authors",  url_for(:action => "authors", :name => nil) %>	
+<br/>
+<br/>
+Last name: 
+<% ("A".."Z").each do |l| 
+	if params[:name].nil? || params[:name]!=l %>
+	<%= link_to(l,  url_for(:action => "authors" , :name => l))%>	
+	<% else %>
+	<%= l %>
+	<% end 
+end %>
+<p>
+<% form_tag(url_for(:action => "authors", :name => nil), :method => :get) do %>
+Search author: <%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Go" %>
+<% end %>
+</p>
+<br/>
+
+<% for author in @authors -%>
+<h3>
+	<%=h author.name %>
+	<%=h " (" + author.fullname_100q.to_s + ")" unless author.fullname_100q.nil? %>
+	<% for name in author.people_extra_names -%>
+	<%=h " - " + name.alternative_name_400a %>
+	<% end %>
+</h3>
+<table cellpadding="5%" width="100%">
+	<%= render(:partial => "book" , :collection => author.items, :locals => {:hide_author => true, 
+		:co_authored => false}) %>
+	<%= render(:partial => "book" , :collection => author.co_authored_items, 
+		:locals => {:hide_author => false, :co_authored => true}) %>
+</table>
+<% end %>
+<center><%= will_paginate @authors %></center>
