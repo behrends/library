@@ -1,19 +1,19 @@
 class ItasController < ApplicationController
   layout "itas"
 
-  # return 10 random approved items in ITAS and online librarys having a cover image
+  # return random approved items in ITAS and online librarys having a cover image
   def index
     query = "SELECT items.* FROM (SELECT items.id FROM items LEFT OUTER JOIN items_library_locations
       ON items.id=items_library_locations.item_id WHERE library_location_id IN (1,4,5) AND is_approved=true 
-      AND image_url IS NOT NULL ORDER BY RAND() LIMIT 10) AS random_items JOIN items ON items.id = random_items.id"
-    @books = Item.find_by_sql(query)
+      AND image_url IS NOT NULL ORDER BY RAND() LIMIT 5) AS random_items JOIN items ON items.id = random_items.id"
+    @books = Item.find_by_sql([query])
   end
 
   # return all approved items in ITAS and online librarys sorted by title
   def all
     query = "SELECT items.* FROM items LEFT OUTER JOIN items_library_locations ON items.id=items_library_locations.item_id 
       WHERE library_location_id IN (1,4,5) AND is_approved=true ORDER BY title_main_245a"
-    @books = Item.paginate_by_sql([query], :per_page => 10, :page => params[:page])
+    @books = Item.paginate_by_sql([query], :per_page => 5, :page => params[:page])
   end
   
   def book
@@ -48,6 +48,8 @@ class ItasController < ApplicationController
       LEFT OUTER JOIN library_locations ON (library_locations.id = items_library_locations.library_location_id)
       LEFT OUTER JOIN items_person_keywords ipk ON items.id=ipk.item_id
       LEFT OUTER JOIN person_keywords pk ON ipk.person_keyword_id=pk.id
+      LEFT OUTER JOIN items_series ON items.id=items_series.item_id
+      LEFT OUTER JOIN series ON (series.id = items_series.series_id)
       WHERE library_location_id IN (1,4,5) AND is_approved=true AND 
         (LOWER(items.accession_no) LIKE ? OR LOWER(items.add_titles_700t) LIKE ? OR 
         LOWER(items.audio_url) LIKE ? OR LOWER(items.colophon_505g) LIKE ? OR 
@@ -72,13 +74,13 @@ class ItasController < ApplicationController
         LOWER(items_people_extra_names.alternative_name_400a) LIKE ? OR LOWER(peoples_items.name) LIKE ? OR
         LOWER(peoples_items.title_100c) LIKE ? OR LOWER(peoples_items.fullname_100q) LIKE ? OR
         LOWER(uniform_titles.uniformtitle_240a) LIKE ? OR LOWER(pk.keyword) LIKE ? OR
-        LOWER(items_library_locations.shelfmark) LIKE ?)"
-    cond = ["%" + params[:search].downcase.strip + "%"] * 48
+        LOWER(items_library_locations.shelfmark) LIKE ? OR LOWER(series.name) LIKE ?)"
+    cond = ["%" + params[:search].downcase.strip + "%"] * 49
     if params[:has_pdf]
       query += " AND pdf IS NOT NULL"
     end
     query += " ORDER BY title_main_245a"
-    @books = Item.paginate_by_sql([].push(query) + cond, :per_page => 10, :page => params[:page])
+    @books = Item.paginate_by_sql([].push(query) + cond, :per_page => 5, :page => params[:page])
   end
   
   def advanced_search
@@ -131,7 +133,7 @@ class ItasController < ApplicationController
       # in case a switch to the list of items in title order is needed, this would be the regular query 
       query << " ORDER BY title_main_245a"
     end
-    @books = Item.paginate_by_sql([].push(query) + cond, :per_page => 10, :page => params[:page])
+    @books = Item.paginate_by_sql([].push(query) + cond, :per_page => 5, :page => params[:page])
   
     # use the advanced layout to retain the advanced search form
     render(:template => "itas/advanced_search", :layout => "itas_advanced")
