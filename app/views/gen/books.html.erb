@@ -1,8 +1,0 @@
-<%= render(:partial => "book_header") %>
-
-<!-- Favorites, Search, PicLens, Tags, TagCloud, PDF -->
-<table cellpadding="5%" width="100%">
-	<%= render(:partial => "book", :collection => @books, :locals => {:hide_author => false,
-		:co_authored => false}) %>
-</table>
-<center><%= will_paginate @books %></center>
