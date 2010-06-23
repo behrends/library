@@ -111,6 +111,6 @@ $(document).ready(function() {
 
 
 function showSpinner(){
-  $("#pagination_bottom").before("<img src='../images/spinner.gif'/ class='spinner'/>");
+  $("#pagination_bottom").before("<img src='images/spinner.gif' class='spinner'/>");
 }
 
