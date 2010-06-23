@@ -2,11 +2,8 @@
 !!! Strict
 %html{ :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
-    = javascript_include_tag :defaults
-    = javascript_include_tag "builder.js"
-    = javascript_include_tag "modalbox.js"
-    = stylesheet_link_tag "ec"
-    = stylesheet_link_tag "modalbox.css"
+    = javascript_include_tag "jquery-1.4.min.js", "jquery-ui-1.7.2.custom.min.js", "jquery.ba-bbq.min.js", "application"
+    = stylesheet_link_tag "ec", "jquery-ui-1.7.2.custom.css"
     %link{:rel => "shortcut icon", :href => "/favicon.ico"}
     %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
     %title Europe Center Library
@@ -16,7 +13,7 @@
         #header
           %a{ :id => "logo", :href => "http://www.europe-center.org/" }
           %a{ :id => "dwblogo", :href => "http://www.diamondway-buddhism.org/" }
-          - form_remote_tag :url => { :action => "search" }, :success => "setSelected('none')", :method => :get, :loading => "showSpinner()" do
+          - form_tag( { :action => "index" }, :method => "get", :id => "search_form" ) do
             %label Search:
             = text_field_tag :search, params[:search], :class => "search"
             = image_submit_tag "../images/ec-butt-go.gif", :style => "vertical-align: bottom;", :id => "search_button"
@@ -25,22 +22,22 @@
             %b
               COLLECTIONS
             %ul
-              %li{:name => "all", :id => "selected"}
-                = link_to_remote "All books", :url => { :action => "index" }, :success => "setSelected('all')", :loading => "showSpinner()", :method => :get
+              %li{:name => "all"}
+                = link_to "All books", {}, :class => "category"
               %li{:name => "intro"}
-                = link_to_remote "Introduction", :url => { :action => "search_by_keyword", :keyword => "Introduction to Buddhism" }, :success => "setSelected('intro')", :loading => "showSpinner()", :method => :get
+                = link_to "Introduction", { :keywords => "Introduction to Buddhism" }, :class => "category"
               %li{:name => "ngondro"}
-                = link_to_remote "Foundational Practices", :url => { :action => "search_by_keyword", :keyword => "Ngondro" }, :success => "setSelected('ngondro')", :loading => "showSpinner()", :method => :get
+                = link_to "Foundational Practices", { :keywords => "Ngondro" }, :class => "category"
               %li{:name => "essential"}
-                = link_to_remote "Must reads", :url => { :action => "search_by_keyword", :keyword => "Essential" }, :success => "setSelected('essential')", :loading => "showSpinner()", :method => :get
+                = link_to "Must reads", { :keywords => ['Essential', 'Diamond Way'] }, :class => "category"
               %li{:name => "bio"}
-                = link_to_remote "Life Stories", :url => { :action => "search_by_keyword", :keyword => "Biography" }, :success => "setSelected('bio')", :loading => "showSpinner()", :method => :get
+                = link_to "Life Stories", { :keywords => "Biography" }, :class => "category"
               %li{:name => "mahamudra"}
-                = link_to_remote "The Great Seal", :url => { :action => "search_by_keyword", :keyword => "Mahamudra" }, :success => "setSelected('mahamudra')", :loading => "showSpinner()", :method => :get
+                = link_to "The Great Seal", { :keywords => "Mahamudra" }, :class => "category"
               %li{:name => "kagyu"}
-                = link_to_remote "Karma Kagy&uuml;", :url => { :action => "search_by_keyword", :keyword => "Kagyu" }, :success => "setSelected('kagyu')", :loading => "showSpinner()", :method => :get
+                = link_to "Karma Kagy&uuml;", { :keywords => "Kagyu" }, :class => "category"
               %li{:name => "nyinmga"}
-                = link_to_remote "Nyingma", :url => { :action => "search_by_keyword", :keyword => "Nyingma" }, :success => "setSelected('nyinmga')", :loading => "showSpinner()", :method => :get
+                = link_to "Nyingma", { :keywords => "Nyingma" }, :class => "category"
           #right
             = yield
       #push

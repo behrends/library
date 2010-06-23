@@ -11,8 +11,6 @@
           - unless params[:search].blank?
             %span#searchresult
               = 'Results for search "' + params[:search] + '"'
-          .ec_pagination{ :id => "pagination_top" }
-            = will_paginate @books, :container => false
           .page_info
             = page_entries_info @books
       = render(:partial => "genericlibrary/book", :collection => @books)
