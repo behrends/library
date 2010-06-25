@@ -103,7 +103,8 @@ opacity: 0.5;
 
 .active-scaffold-header div.actions a.new,
 .active-scaffold-header div.actions a.new_existing,
-.active-scaffold-header div.actions a.show_search {
+.active-scaffold-header div.actions a.show_search,
+.active-scaffold-header div.actions a.export {
 padding-left: 19px;
 background-position: 1px 50%;
 background-repeat: no-repeat;
@@ -116,6 +117,10 @@ background-image: url(../../../images/active_scaffold/default/add.gif);
 
 .active-scaffold-header div.actions a.show_search {
 background-image: url(../../../images/active_scaffold/default/magnifier.png);
+}
+
+.active-scaffold-header div.actions a.export {
+background-image: url(../../../images/active_scaffold/default/go-bottom.png);
 }
 
 .blue-theme .active-scaffold-header div.actions a:hover {

@@ -5,6 +5,9 @@ class ItemController < ApplicationController
   before_filter :set_page_name
 
   active_scaffold :item do |conf|
+    
+    conf.action_links.add 'export', :label => 'Export', :type => :table, :page => true
+    
     #conf.action_links.add 'duplicate',
     #  :label => "Duplicate",
     #  :type => :record,
@@ -304,6 +307,10 @@ class ItemController < ApplicationController
     conf.update.columns.add_subgroup "Library, Shelfmark, Accession, Rarity (non-MARC)" do |group|
      group.add :accession_no, :items_library_locations, :is_rarity
     end
+  end
+  
+  def export
+    send_file "/tmp/bla.pdf", :type => "application/pdf" 
   end
   
   def duplicate
