@@ -312,8 +312,10 @@ class ItemController < ApplicationController
   end
   
   def export
-    @items = Item.find(:all, :conditions => { :id => 1..20 })   
-    send_file export_to_xls(@items), :type => "application/vnd.ms-excel" 
+    library_id = 1
+    items = Item.find(:all, :include => [ :person, :items_library_locations, :publisher, :items_series ], 
+      :conditions => [ "library_location_id = #{library_id.to_i}" ] )   
+    send_file export_to_xls(items, library_id), :type => "application/vnd.ms-excel" 
   end
   
   def duplicate
