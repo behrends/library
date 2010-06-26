@@ -77,3 +77,4 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+require 'spreadsheet'

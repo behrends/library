@@ -1,6 +1,8 @@
 class ItemController < ApplicationController
   layout "activescaffold"
 
+  include ItemHelper
+
   before_filter :login_required
   before_filter :set_page_name
 
@@ -310,7 +312,8 @@ class ItemController < ApplicationController
   end
   
   def export
-    send_file "/tmp/bla.pdf", :type => "application/pdf" 
+    @items = Item.find(:all, :conditions => { :id => 1..20 })   
+    send_file export_to_xls(@items), :type => "application/vnd.ms-excel" 
   end
   
   def duplicate
