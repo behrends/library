@@ -312,6 +312,7 @@ class ItemController < ApplicationController
   end
   
   def export
+    #item-export--link
     library_id = 1
     items = Item.find(:all, :include => [ :person, :items_library_locations, :publisher, :items_series ], 
       :conditions => [ "library_location_id = #{library_id.to_i}" ] )   
