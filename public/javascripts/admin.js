@@ -4,17 +4,14 @@ jQuery.noConflict();
 
 jQuery(document).ready(function(){
  
-  jQuery("#export-form").dialog({
+  jQuery("#export-form-dialog").dialog({
 	autoOpen: false,
-	height: 300,
-	width: 450,
+	height: 180,
+	width: 400,
 	modal: true,
 	buttons: {
 		'Export items': function() {
-			var library_id = jQuery("#library_id").val();
-			//jQuery.get("item/export", { library_id: library_id } );
-			//de.preventDefault();  //stop the browser from following
-    			window.location.href = "item/export?library_id=" + library_id;
+			jQuery('#export-form').submit();
 			jQuery(this).dialog('close');
 		},
 		Cancel: function() {
@@ -25,7 +22,7 @@ jQuery(document).ready(function(){
   });
 
   jQuery("#item-export--link").live("click", function() {
-    jQuery('#export-form').dialog('open');
+    jQuery('#export-form-dialog').dialog('open');
     return false;
   });
 

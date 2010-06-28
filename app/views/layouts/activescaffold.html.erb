@@ -48,14 +48,16 @@
 		</div>
 	</div>
 
-	<div id="export-form" title="Export items as Excel spreadsheet">
-
-		<form>
-		<fieldset>
-			<label for="library">Choose library to export items from</label>
-			<input type="text" name="library_id" id="library_id" class="text ui-widget-content ui-corner-all" />
-		</fieldset>
-		</form>
+	<div id="export-form-dialog" title="Export items as Excel spreadsheet">
+		<% form_tag('item/export', :method => :get, :id => "export-form") do %>
+			<label for="library">Export items of library:</library>
+			<select name='library_id'>
+				<option value='1'>ITAS</option>
+				<option value='3'>EC</option>
+				<option value='2'>KIBI</option>
+				<option value='6'>Z&uuml;rich</option>
+			</select>
+		<% end %>
 	</div>
 
 </body>
