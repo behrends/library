@@ -312,7 +312,7 @@ class ItemController < ApplicationController
   end
   
   def export
-    library_id = params[:library_id].is_a?(Integer) ? params[:library_id] : 1
+    library_id = params[:library_id].to_i > 0 ? params[:library_id].to_i : 1
     items = Item.find(:all, :include => [ :person, :items_library_locations, :publisher, :items_series ], 
       :conditions => [ "library_location_id = #{library_id.to_i}" ] )   
     send_file export_to_xls(items, library_id), :type => "application/vnd.ms-excel" 

@@ -46,5 +46,18 @@
 			<p>Diamond Way Library - Administration</p>
 		</div>
 	</div>
+
+	<div id="export-form-dialog" title="Export items as Excel spreadsheet">
+		<% form_tag('item/export', :method => :get, :id => "export-form") do %>
+			<label for="library">Export items of library:</library>
+			<select name='library_id'>
+				<option value='1'>ITAS</option>
+				<option value='3'>EC</option>
+				<option value='2'>KIBI</option>
+				<option value='6'>Z&uuml;rich</option>
+			</select>
+		<% end %>
+	</div>
+
 </body>
 </html>
