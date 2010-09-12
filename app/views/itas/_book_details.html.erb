@@ -94,8 +94,6 @@ names = ["Title in other language", "Material description", "Title from other au
 </td>
 <td nowrap="true" valign="bottom" align="right">
   <% unless hide_button %>
-    <% form_remote_tag :url => { :action => 'book_item', :id => @book.id, :less => true } do %>
-      <%= submit_tag "&laquo; less", :class => "button" %>
-    <% end %>
+    <%= link_to_remote "&laquo; less", :update => @book.id, :url => { :action => "book_item", :id => @book.id, :less => true } %>
   <% end %>
 </td>

@@ -23,10 +23,8 @@ class ItasController < ApplicationController
   
   def book_item
     @book = Item.find(params[:id])
-    render :update do |page|
-      page.replace_html(@book.id.to_s, :partial => "book_details" , :object => @book, :locals => { :hide_button => false }) if params[:more]
-      page.replace(@book.id.to_s, :partial => "book" , :object => @book) if params[:less]
-    end
+    render(:partial => "book_details", :object => @book, :locals => { :hide_button => false }) if params[:more]
+    render(:partial => "book_without_table_row", :object => @book) if params[:less]
   end
 
   def toggle_search

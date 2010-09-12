@@ -23,8 +23,8 @@
       = h book.publication_date_260c
       %br
   %td{ :nowrap => "true", :valign => "bottom", :align => "right" }
-    - form_remote_tag :url => { :action => 'book_item', :id => book.id, :more => true } do
-      = submit_tag "more &raquo;", :class => "button"
+    = link_to_remote "more &raquo;", :class => "button", :update => book.id, :url => { :action => "book_item", :id => book.id, :more => true }
+
 / draw a horizontal rule if we render a collection of books
 - if @books
   %tr
