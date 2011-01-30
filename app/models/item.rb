@@ -42,7 +42,10 @@ class Item < ActiveRecord::Base
   has_many :people, :through => :extra_people
   
   validates_presence_of :title_main_245a
-    
+
+  before_create :set_create_user
+  before_save :set_update_user
+
   def to_label
     "#{title_main_245a}"
   end
@@ -56,5 +59,14 @@ class Item < ActiveRecord::Base
       return "no" unless ill.is_approved
     end
     return "yes"
+  end
+
+  private
+  def set_create_user
+    self.user = current_user
+  end
+
+  def set_update_user
+    self.update_user = current_user
   end
 end
