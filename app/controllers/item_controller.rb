@@ -314,7 +314,7 @@ class ItemController < ApplicationController
   def export
     library_id = params[:library_id].to_i > 0 ? params[:library_id].to_i : 1
     items = Item.find(:all, :include => [ :person, :items_library_locations, :publisher, :items_series ], 
-      :conditions => [ "library_location_id = #{library_id.to_i}" ] )   
+      :conditions => [ "library_location_id = #{library_id.to_i}" ], :order => "shelfmark ASC")
     send_file export_to_xls(items, library_id), :type => "application/vnd.ms-excel" 
   end
   
@@ -326,7 +326,7 @@ class ItemController < ApplicationController
            end
   end
   
-  #used by update/create views to determine if shelfmark already in use by other item
+  #used by update/create views to determine if shelfmark already in use by other item:
   #see _shelfmark_form_column.rhtml in app/view/item/
   def check_duplicate_shelfmark
     @dups = ItemsLibraryLocation.find(:all, 
