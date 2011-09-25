@@ -63,7 +63,7 @@ class GenericlibraryController < ApplicationController
           LEFT OUTER JOIN items_keywords ON items.id=items_keywords.item_id          
           LEFT OUTER JOIN keywords ON items_keywords.keyword_id=keywords.id  
           LEFT OUTER JOIN language041as ON language041as.item_id=items.id
-          WHERE library_location_id=3 AND is_approved=true AND uniform_title_id IS NOT NULL
+          WHERE library_location_id=#{@@library_location} AND is_approved=true AND uniform_title_id IS NOT NULL
           AND keywords.keyword IN (?) 
           GROUP BY uniform_title_id,language_code_id)"
       @books = Item.paginate_by_sql([query, params[:keywords], params[:keywords]], :per_page => 6, :page => params[:page])     
