@@ -12,7 +12,7 @@
       #frame
         #header
           %a{ :href => "http://www.kibi-edu.org/", :target => "_blank" }
-            %img{ :src => "../images/kibi-logo.jpg", :width => 108, :height => 108 }
+            = image_tag "../images/kibi-logo.jpg", :width => 108, :height => 108
           - form_tag( { :action => "index" }, :method => "get", :id => "search_form" ) do
             %label Search:
             = text_field_tag :search, params[:search], :class => "search"
