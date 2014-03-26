@@ -3,7 +3,7 @@
 %html{ :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
     = javascript_include_tag "jquery-1.4.min.js", "jquery-ui-1.7.2.custom.min.js", "jquery.ba-bbq.min.js", "genericlibrary"
-    = stylesheet_link_tag "ec", "jquery-ui-1.7.2.custom.css"
+    = stylesheet_link_tag "ec", "kibi", "jquery-ui-1.7.2.custom.css"
     %link{:rel => "shortcut icon", :href => "/favicon.ico"}
     %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
     %title Kibi Library
@@ -11,7 +11,8 @@
     #mainpage
       #frame
         #header
-          %a{ :id => "dwblogo", :href => "http://www.diamondway-buddhism.org/" }
+          %a{ :href => "http://www.kibi-edu.org/", :target => "_blank" }
+            %img{ :src => "../images/kibi-logo.jpg", :width => 108, :height => 108 }
           - form_tag( { :action => "index" }, :method => "get", :id => "search_form" ) do
             %label Search:
             = text_field_tag :search, params[:search], :class => "search"
