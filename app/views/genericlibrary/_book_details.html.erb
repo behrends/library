@@ -43,6 +43,11 @@ names = ["Title in other language", "Material description", "Title from other au
       <%= @book.title_remainder_245b unless @book.title_remainder_245b.nil? %>
       <%= " - " + @book.title_remainder_245b_2 unless @book.title_remainder_245b_2.nil? %>
       <%= " - " + @book.title_responsibility_245c unless @book.title_responsibility_245c.nil? %>
+      <% unless @book.uniform_title_id.nil? %>
+        <br/>
+        <br/>
+        <b>Uniform title: </b> <%= @book.uniform_title.uniformtitle_240a %>
+      <% end %>
       <br/>
       <br/>
       
