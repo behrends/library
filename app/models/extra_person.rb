@@ -3,6 +3,6 @@ class ExtraPerson < ActiveRecord::Base
   belongs_to :person # this person (i.e. author)
   
   def to_label
-    "#{person.name}"
+    "#{person.nil? ? '' : person.name}"
   end
 end
